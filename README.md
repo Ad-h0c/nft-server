@@ -41,6 +41,16 @@ server {
     include /etc/nginx/snippets/ssl-params.conf;
 }
 
+server {
+    if ($host = nft.thetamillion.com) {
+        return 301 https://$host$request_uri;
+    }
+
+    listen 0.0.0.0:80;
+    server_name nft.thetamillion.com;
+    return 404;
+}
+
 ```
 
 - `ln -s /etc/nginx/sites-available/nft.thetamillion.com nft.thetamillion.com`
