@@ -3,7 +3,7 @@ import cors from 'cors';
 import svg from './svg';
 import metadata from './metadata';
 
-export const BASE_URL = 'http://localhost:4005/';
+export const BASE_URL = 'https://nft.thetamillion.com/';
 export const WIDTH = 20;
 
 export interface SpotData {
@@ -55,6 +55,7 @@ function spotFromPath(path: string) {
     });
 
     app.get("/:path", (req, res, next) => {
+        // res.setHeader('Cache-Control', 'public, max-age=86400'); // tell cloudflare to cache everything for some time
         const path = req.params.path;
         if (path.slice(-5) === '.json') {
             const spot = spotFromPath(path.slice(0, -4));
@@ -77,5 +78,5 @@ function spotFromPath(path: string) {
         res.status(400).end('');
     } as ErrorRequestHandler);
     
-    app.listen(4005, '127.0.0.1', () => console.log('Webserver started'));
+    app.listen(4101, '127.0.0.1', () => console.log('Webserver started'));
 })();
